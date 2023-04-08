@@ -1,0 +1,80 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8080
+
+#日志
+logging:
+  file:
+    path: ./logs/
+  level:
+    com.mx: debug
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://localhost:3306/mx_web_temp?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  data:
+    redis:
+      password:
+      host: localhost
+      port: 6379
+      timeout: 3000
+
+# sa-token配置
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: mx-token
+  # token有效期，单位s 默认7天, -1代表永不过期
+  timeout: 604800 # 60s*60m*24h*7d
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+  activity-timeout: -1
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: false
+  # token风格
+  token-style: simple-uuid
+  # 禁用cookie
+  is-read-cookie: false
+  # 关闭自动续签, 手动实现自动续签
+  auto-renew: false
+  is-print: false
+  is-log: false
+
+util:
+  captcha:
+    width: 150
+    height: 40
+
+#记得把file.upload-dir配置成你自己的存储文件的文件所在的绝对路径
+file:
+  upload-dir: ./file/
+  image-dir: ./images/
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.xiaominfo.knife4j.demo.web
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
