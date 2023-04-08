@@ -5,10 +5,9 @@ server:
 
 #日志
 logging:
-  file:
-    path: ./logs/
   level:
     com.mx: debug
+  file.path: ./logs/
 
 spring:
   jackson:
