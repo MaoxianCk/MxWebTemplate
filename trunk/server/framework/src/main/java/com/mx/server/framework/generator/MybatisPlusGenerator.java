@@ -20,12 +20,14 @@ import java.util.List;
  * @since 2023/4/9
  */
 public class MybatisPlusGenerator {
-    public static void main(String[] args) {
-        FastAutoGenerator.create("jdbc:mysql://localhost:3307/mx_web_temp?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true", "root", "Vma243rbPyCqWcLbxZQvDm9dSBEm94vf")
+    public static void mains(String[] args) {
+        FastAutoGenerator.create("jdbc:mysql://127.0.0.1:3307/mx_web_temp?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true",
+                        "root",
+                        "123456")
                 .globalConfig(builder -> {
                     builder.author("Maoxian") // 设置作者
                             .disableOpenDir()
-                            .enableSwagger() // 开启 swagger 模式
+                            // .enableSwagger() // 开启 swagger 模式
                             .outputDir(System.getProperty("user.dir") + "/framework/src/main/java"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
