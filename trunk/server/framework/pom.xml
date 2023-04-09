@@ -43,10 +43,21 @@
             <version>8.0.32</version>
         </dependency>
 
+        <!-- <dependency> -->
+        <!--     <groupId>org.mybatis.spring.boot</groupId> -->
+        <!--     <artifactId>mybatis-spring-boot-starter</artifactId> -->
+        <!--     <version>3.0.1</version> -->
+        <!-- </dependency> -->
+
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.5.13</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.3.1</version>
         </dependency>
 
         <!--JDBC-->

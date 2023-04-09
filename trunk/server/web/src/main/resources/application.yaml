@@ -13,10 +13,6 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-  datasource:
-    url: jdbc:mysql://localhost:3306/mx_web_temp?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: root
-    password: 123456
   servlet:
     multipart:
       enabled: true
@@ -28,7 +24,16 @@ spring:
       host: localhost
       port: 6379
       timeout: 3000
+  datasource:
+    url: jdbc:mysql://localhost:3307/mx_web_temp?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
 
+mybatis-plus:
+  global-config:
+    banner: false
+    db-config:
+      update-strategy: not_null
 # sa-token配置
 sa-token:
   # token名称 (同时也是cookie名称)
@@ -68,10 +73,12 @@ springdoc:
     operations-sorter: alpha
   api-docs:
     path: /v3/api-docs
+    groups:
+      enabled: true
   group-configs:
-    - group: 'default'
-      paths-to-match: '/**'
-      packages-to-scan: com.xiaominfo.knife4j.demo.web
+    - group: 'all'
+      packages-to-scan: com.mx.server
+
 # knife4j的增强配置，不需要增强可以不配
 knife4j:
   enable: true
