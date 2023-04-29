@@ -2,6 +2,7 @@ package com.mx.server.framework.dao;
 
 import com.mx.server.framework.model.entity.UserEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -9,8 +10,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Maoxian
- * @since 2023-04-09
+ * @since 2023-04-29
  */
+@Mapper
 public interface UserMapper extends BaseMapper<UserEntity> {
 
 }

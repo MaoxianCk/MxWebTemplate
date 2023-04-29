@@ -12,11 +12,11 @@ import lombok.Setter;
 
 /**
  * <p>
- * 字典表
+ * 字典数据表
  * </p>
  *
  * @author Maoxian
- * @since 2023-04-09
+ * @since 2023-04-29
  */
 @Getter
 @Setter
@@ -25,50 +25,68 @@ public class DictEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * id
-     */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 名称
+     * 父级id null 表示字典类型
      */
-    @TableField("name")
-    private String name;
+    @TableField("parent_id")
+    private Long parentId;
 
     /**
-     * 编码
+     * 父级编码 null表示字典类型
+     */
+    @TableField("parent_code")
+    private String parentCode;
+
+    /**
+     * 字典编码
      */
     @TableField("code")
     private String code;
 
     /**
-     * 值
+     * 字典标签
+     */
+    @TableField("label")
+    private String label;
+
+    /**
+     * 字典键值
      */
     @TableField("value")
     private String value;
 
     /**
-     * 说明
+     * 字典排序
+     */
+    @TableField("orders")
+    private Integer orders;
+
+    /**
+     * 是否默认(1是/0否)
+     */
+    @TableField("is_default")
+    private String isDefault;
+
+    /**
+     * 状态(0正常/1停用)
+     */
+    @TableField("status")
+    private String status;
+
+    /**
+     * 备注
      */
     @TableField("description")
     private String description;
 
     /**
-     * 父级id
+     * 创建者
      */
-    @TableField("parent_id")
-    private Long parentId;
-
-    @TableField("parent_code")
-    private String parentCode;
-
-    /**
-     * 顺序
-     */
-    @TableField("orders")
-    private Integer orders;
+    @TableField(value = "create_user_id", fill = FieldFill.INSERT)
+    private Long createUserId;
 
     /**
      * 创建时间
@@ -77,26 +95,14 @@ public class DictEntity implements Serializable {
     private LocalDateTime createTime;
 
     /**
-     * 修改时间
-     */
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-
-    /**
-     * 创建用户
-     */
-    @TableField(value = "create_user_id", fill = FieldFill.INSERT)
-    private Long createUserId;
-
-    /**
-     * 更新用户
+     * 更新者
      */
     @TableField(value = "update_user_id", fill = FieldFill.INSERT_UPDATE)
     private Long updateUserId;
 
     /**
-     * 0 屏蔽 1启用
+     * 更新时间
      */
-    @TableField("status")
-    private Boolean status;
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 }
