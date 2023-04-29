@@ -10,6 +10,8 @@ logging:
   file.path: ./logs/
 
 spring:
+  profiles:
+    active: local
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -21,13 +23,13 @@ spring:
   data:
     redis:
       password:
-      host: localhost
-      port: 6379
+      host:
+      port:
       timeout: 3000
   datasource:
-    url: jdbc:mysql://localhost:3307/mx_web_temp?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: root
-    password: 123456
+    url:
+    username:
+    password:
 
 mybatis-plus:
   global-config:
