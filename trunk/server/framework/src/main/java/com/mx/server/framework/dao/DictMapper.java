@@ -2,7 +2,10 @@ package com.mx.server.framework.dao;
 
 import com.mx.server.framework.model.entity.DictEntity;
 import com.mx.server.framework.config.mybatis.MxBaseMapper;
+import com.mx.server.framework.model.vo.ReqSearchListVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -10,9 +13,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Maoxian
- * @since 2023-05-01
+ * @since 2023-04-30
  */
 @Mapper
 public interface DictMapper extends MxBaseMapper<DictEntity> {
-
+    List<DictEntity> selectDictList(ReqSearchListVO req);
 }
