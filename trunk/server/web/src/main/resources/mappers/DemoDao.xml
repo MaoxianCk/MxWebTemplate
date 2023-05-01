@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mx.server.web.dao.DemoDao">
-    <select id="selectOne" resultType="com.mx.server.web.model.entity.DemoEntity">
-        select * from t_demo limit 1;
-    </select>
-</mapper>

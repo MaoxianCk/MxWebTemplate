@@ -1,6 +1,7 @@
 package com.mx.server.framework.model.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.mx.server.framework.enums.EntityDeletedEnum;
 import com.mx.server.framework.enums.EntityStatusEnum;
@@ -17,23 +18,25 @@ public class BaseEntity {
     /**
      * 状态
      */
+    @TableField(value = "status")
     private EntityStatusEnum status;
 
     /**
      * 是否删除
      */
+    @TableField(value = "deleted")
     private EntityDeletedEnum deleted;
 
     /**
      * 创建者
      */
-    @TableField(value = "create_user_id", fill = FieldFill.INSERT)
+    @TableField(value = "create_user_id", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
     private Long createUserId;
 
     /**
      * 创建时间
      */
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
     private LocalDateTime createTime;
 
     /**

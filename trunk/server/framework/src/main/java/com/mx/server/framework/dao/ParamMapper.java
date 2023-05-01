@@ -1,8 +1,11 @@
 package com.mx.server.framework.dao;
 
+import com.mx.server.framework.model.vo.ReqSearchListVO;
 import com.mx.server.framework.model.entity.ParamEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -10,9 +13,10 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Maoxian
- * @since 2023-04-29
+ * @since 2023-04-30
  */
 @Mapper
 public interface ParamMapper extends BaseMapper<ParamEntity> {
 
+    List<ParamEntity> selectParamList(ReqSearchListVO req);
 }

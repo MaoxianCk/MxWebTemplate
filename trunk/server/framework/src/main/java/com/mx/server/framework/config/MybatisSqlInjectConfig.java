@@ -15,14 +15,15 @@ public class MybatisSqlInjectConfig implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, now);
-        this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, now);
+        this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, now);
 
         Integer loginId = null;
         try {
             if (StpUtil.isLogin()) {
                 loginId = StpUtil.getLoginIdAsInt();
             }
-        } catch (SaTokenException ignore){}
+        } catch (SaTokenException ignore) {
+        }
         this.strictInsertFill(metaObject, "createUserId", Integer.class, loginId);
         this.strictInsertFill(metaObject, "updateUserId", Integer.class, loginId);
     }
@@ -35,6 +36,8 @@ public class MybatisSqlInjectConfig implements MetaObjectHandler {
             loginId = StpUtil.getLoginIdAsInt();
         }
         this.strictUpdateFill(metaObject, "updateTime", LocalDateTime.class, now);
-        this.strictInsertFill(metaObject, "updateUserId", Integer.class, loginId);
+        this.strictUpdateFill(metaObject, "updateUserId", Integer.class, loginId);
+        // metaObject.setValue("createTime", null);
+        // metaObject.setValue("createUserId", null);
     }
 }

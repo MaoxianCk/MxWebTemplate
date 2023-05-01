@@ -25,6 +25,8 @@ public class ControllerParamLogAspect {
 
     private final ObjectMapper objectMapper;
 
+    private static int globalReqCount = 0;
+
     public ControllerParamLogAspect(ControllerExceptionAdvice exceptionHandle, ObjectMapper objectMapper) {
         this.exceptionHandle = exceptionHandle;
         this.objectMapper = objectMapper;
@@ -32,11 +34,11 @@ public class ControllerParamLogAspect {
 
     @Pointcut("@annotation(com.mx.server.framework.annotation.IgnoreAOP)")
     private void ignore() {};
-    @Pointcut("execution(public * com.mx.server..*.controller..*.*(..))")
+    @Pointcut("@within(org.springframework.web.bind.annotation.RestController) && execution(public * *(..))")
     private void withins() {};
 
 
-    @Pointcut("withins() && ignore()")
+    @Pointcut("@within(org.springframework.web.bind.annotation.RestController) && execution(public * com.mx.server..*(..))")
     public void controllerLog() {
     }
 
@@ -47,19 +49,19 @@ public class ControllerParamLogAspect {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             assert attributes != null;
             HttpServletRequest request = attributes.getRequest();
-            String id = request.getSession().getId();
             String type = request.getMethod();
             String url = request.getRequestURL().toString();
-            String ip = request.getRemoteAddr();
             String method = pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName();
             String params;
+            int reqCount = globalReqCount;
+            globalReqCount = (globalReqCount + 1) % 10000;
             if (pjp.getArgs() != null && pjp.getArgs().length > 0) {
                 params = objectMapper.writeValueAsString(pjp.getArgs());
             } else {
                 params = "[]";
             }
-            log.debug("AOP start:\t type:{}, url:{}, ip:{}, method:{}, params:{}",
-                    type, url, ip, method, params);
+            log.debug("[{}] AOP start, type:{}, url:{}, method:{}, params:{}",
+                    reqCount, type, url, method, params);
 
             // 处理
             Object o;
@@ -70,8 +72,7 @@ public class ControllerParamLogAspect {
             }
 
             // 处理完请求，返回内容
-            log.debug("AOP end:\t type:{}, url:{}, ip:{}, method:{}, return:{}",
-                    type, url, ip, method, objectMapper.writeValueAsString(o));
+            log.debug("[{}] AOP end, return:{}", reqCount, objectMapper.writeValueAsString(o));
             log.debug("=======================================================");
             return o;
         } catch (Throwable e) {

@@ -1,12 +1,11 @@
 package com.mx.server.framework.model.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.mx.server.framework.model.base.BaseEntity;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,12 +15,12 @@ import lombok.Setter;
  * </p>
  *
  * @author Maoxian
- * @since 2023-04-29
+ * @since 2023-04-30
  */
 @Getter
 @Setter
 @TableName("s_user_info")
-public class UserInfoEntity implements Serializable {
+public class UserInfoEntity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,31 +38,4 @@ public class UserInfoEntity implements Serializable {
 
     @TableField("nickname")
     private String nickname;
-
-    @TableField("deleted")
-    private Boolean deleted;
-
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
-    /**
-     * 修改时间
-     */
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-
-    /**
-     * 创建用户
-     */
-    @TableField(value = "create_user_id", fill = FieldFill.INSERT)
-    private Long createUserId;
-
-    /**
-     * 更新用户
-     */
-    @TableField(value = "update_user_id", fill = FieldFill.INSERT_UPDATE)
-    private Long updateUserId;
 }

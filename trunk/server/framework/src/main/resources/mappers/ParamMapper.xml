@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mx.server.framework.dao.ParamMapper">
 
+    <select id="selectParamList" resultType="com.mx.server.framework.model.entity.ParamEntity">
+        select * from s_param
+        <where>
+            <if test="keyword != null and keyword != ''">
+                name like concat('%', #{keyword}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

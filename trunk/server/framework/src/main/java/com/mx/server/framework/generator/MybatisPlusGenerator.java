@@ -41,6 +41,9 @@ public class MybatisPlusGenerator {
                     builder.addTablePrefix("t_", "s_", "b_", "r_")
                             .addInclude(getTables("all"))
                             .entityBuilder()
+                            .addIgnoreColumns("create_time", "update_time", "create_user_id", "update_user_id", "status", "deleted")
+                            .superClass("com.mx.server.framework.model.base.BaseEntity")
+                            .enableFileOverride()
                             .enableLombok()
                             .idType(IdType.ASSIGN_ID)
                             .enableTableFieldAnnotation()
@@ -50,6 +53,7 @@ public class MybatisPlusGenerator {
                                     new Column("update_user_id", FieldFill.INSERT_UPDATE))
                             .formatFileName("%sEntity") // 设置过滤表前缀
                             .mapperBuilder()
+                            .enableMapperAnnotation()
                             .build();
                 })
                 // 使用Freemarker引擎模板，默认的是Velocity引擎模板

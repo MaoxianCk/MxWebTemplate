@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("dict")
 @RequiredArgsConstructor
-public class DictController {
+public class SysDictController {
     public final DictService dictService;
 
     @ResponseBody
