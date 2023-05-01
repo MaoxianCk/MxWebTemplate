@@ -4,6 +4,7 @@ import com.mx.server.framework.model.vo.ReqSearchListVO;
 import com.mx.server.framework.model.entity.ParamEntity;
 import com.mx.server.framework.config.mybatis.MxBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ import java.util.List;
 public interface ParamMapper extends MxBaseMapper<ParamEntity> {
 
     List<ParamEntity> selectParamList(ReqSearchListVO req);
+
+    ParamEntity selectByIdOrCode(@Param("id") Long id, @Param("code") String code);
 }

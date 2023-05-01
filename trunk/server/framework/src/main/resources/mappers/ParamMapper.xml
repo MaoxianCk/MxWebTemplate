@@ -10,4 +10,15 @@
             </if>
         </where>
     </select>
+    <select id="selectByIdOrCode" resultType="com.mx.server.framework.model.entity.ParamEntity">
+        select * from s_param
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+        </where>
+    </select>
 </mapper>

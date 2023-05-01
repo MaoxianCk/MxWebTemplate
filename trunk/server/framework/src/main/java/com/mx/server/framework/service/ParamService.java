@@ -12,4 +12,6 @@ public interface ParamService {
     void upsertParam(ParamEntity paramEntity);
 
     void deleteParam(ReqDeleteVO reqDeleteVO);
+
+    ParamEntity getParam(Long id, String code);
 }

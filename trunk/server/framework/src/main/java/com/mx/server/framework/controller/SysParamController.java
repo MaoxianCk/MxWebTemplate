@@ -21,6 +21,13 @@ public class SysParamController {
         return CommonReturn.success(paramService.getParamList(req));
     }
 
+    @GetMapping("getParam")
+    @ResponseBody
+    public CommonReturn<?> getParam(@RequestParam(value = "id", required = false) Long id,
+                                    @RequestParam(value = "code", required = false) String code) {
+        return CommonReturn.success(paramService.getParam(id, code));
+    }
+
     @PostMapping("upsertParam")
     @ResponseBody
     public CommonReturn<?> upsertParam(@RequestBody ParamEntity paramEntity) {

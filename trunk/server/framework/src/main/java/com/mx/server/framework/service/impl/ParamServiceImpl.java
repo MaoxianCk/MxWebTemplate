@@ -38,4 +38,13 @@ public class ParamServiceImpl implements ParamService {
     public void deleteParam(ReqDeleteVO reqDeleteVO) {
         paramMapper.physicalDeleteByBatchIds(reqDeleteVO.getIds());
     }
+
+    @Override
+    public ParamEntity getParam(Long id, String code) {
+        if (null == id && null == code) {
+            return null;
+        }
+
+        return paramMapper.selectByIdOrCode(id, code);
+    }
 }
