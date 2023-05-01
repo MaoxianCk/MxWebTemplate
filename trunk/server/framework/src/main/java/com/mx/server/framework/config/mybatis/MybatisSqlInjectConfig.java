@@ -1,4 +1,4 @@
-package com.mx.server.framework.config;
+package com.mx.server.framework.config.mybatis;
 
 import cn.dev33.satoken.exception.SaTokenException;
 import cn.dev33.satoken.stp.StpUtil;

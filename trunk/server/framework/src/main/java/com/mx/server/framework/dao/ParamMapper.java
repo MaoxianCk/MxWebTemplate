@@ -2,7 +2,7 @@ package com.mx.server.framework.dao;
 
 import com.mx.server.framework.model.vo.ReqSearchListVO;
 import com.mx.server.framework.model.entity.ParamEntity;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.mx.server.framework.config.mybatis.MxBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.List;
  * </p>
  *
  * @author Maoxian
- * @since 2023-04-30
+ * @since 2023-05-01
  */
 @Mapper
-public interface ParamMapper extends BaseMapper<ParamEntity> {
+public interface ParamMapper extends MxBaseMapper<ParamEntity> {
 
     List<ParamEntity> selectParamList(ReqSearchListVO req);
 }

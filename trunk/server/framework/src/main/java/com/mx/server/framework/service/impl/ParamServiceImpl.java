@@ -36,6 +36,6 @@ public class ParamServiceImpl implements ParamService {
 
     @Override
     public void deleteParam(ReqDeleteVO reqDeleteVO) {
-        paramMapper.deleteBatchIds(reqDeleteVO.getIds());
+        paramMapper.physicalDeleteById(reqDeleteVO.getIds().get(0));
     }
 }

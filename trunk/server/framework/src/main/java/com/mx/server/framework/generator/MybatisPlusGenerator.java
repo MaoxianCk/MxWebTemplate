@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
-import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
+import com.mx.server.framework.config.mybatis.MxBaseMapper;
+import com.mx.server.framework.model.base.BaseEntity;
 
-import java.sql.Types;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +41,7 @@ public class MybatisPlusGenerator {
                             .addInclude(getTables("all"))
                             .entityBuilder()
                             .addIgnoreColumns("create_time", "update_time", "create_user_id", "update_user_id", "status", "deleted")
-                            .superClass("com.mx.server.framework.model.base.BaseEntity")
+                            .superClass(BaseEntity.class)
                             .enableFileOverride()
                             .enableLombok()
                             .idType(IdType.ASSIGN_ID)
@@ -53,6 +52,8 @@ public class MybatisPlusGenerator {
                                     new Column("update_user_id", FieldFill.INSERT_UPDATE))
                             .formatFileName("%sEntity") // 设置过滤表前缀
                             .mapperBuilder()
+                            // .enableFileOverride()
+                            .superClass(MxBaseMapper.class)
                             .enableMapperAnnotation()
                             .build();
                 })
