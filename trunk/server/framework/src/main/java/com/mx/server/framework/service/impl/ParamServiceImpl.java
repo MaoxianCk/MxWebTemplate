@@ -12,12 +12,14 @@ import com.mx.server.framework.model.vo.ReqDeleteVO;
 import com.mx.server.framework.model.vo.ReqSearchListVO;
 import com.mx.server.framework.service.ParamService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ParamServiceImpl implements ParamService {
@@ -52,7 +54,10 @@ public class ParamServiceImpl implements ParamService {
 
     @Override
     public void deleteParam(ReqDeleteVO reqDeleteVO) {
-        paramMapper.physicalDeleteByBatchIds(reqDeleteVO.getIds());
+        int changes = paramMapper.physicalDeleteByBatchIds(reqDeleteVO.getIds());
+        if (changes > 0){
+            refreshCache();
+        }
     }
 
     @Override
@@ -75,5 +80,6 @@ public class ParamServiceImpl implements ParamService {
         List<ParamEntity> list = paramMapper.selectList(null);
         Map<String, ParamCacheMO> map = list.stream().collect(Collectors.toMap(ParamEntity::getCode, ParamCacheMO::new));
         redisCache.setCacheMap(RedisConstants.PARAM_MAP_KEY, map);
+        log.info("refresh param cache");
     }
 }
