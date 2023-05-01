@@ -22,6 +22,7 @@ spring:
       max-request-size: 10MB
   data:
     redis:
+      prefix: mx:server
       password:
       host:
       port:

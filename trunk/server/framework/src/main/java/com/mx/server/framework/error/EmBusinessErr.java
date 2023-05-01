@@ -22,7 +22,9 @@ public enum EmBusinessErr implements CommonError {
     //文件
     FILE_EXISTED(3000, "文件已上传"),
 
-    FILE_UPLOAD_ERROR(3001, "文件上传失败");
+    FILE_UPLOAD_ERROR(3001, "文件上传失败"),
+
+    PARAM_ALREADY_EXISTED(12000, "参数已存在");
 
 
     private final Integer errCode;
