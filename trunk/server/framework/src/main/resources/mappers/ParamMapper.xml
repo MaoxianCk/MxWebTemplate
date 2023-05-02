@@ -9,6 +9,7 @@
                 name like concat('%', #{keyword}, '%')
             </if>
         </where>
+        order by create_time desc
     </select>
     <select id="selectByIdOrCode" resultType="com.mx.server.framework.model.entity.ParamEntity">
         select * from s_param

@@ -1,7 +1,7 @@
 package com.mx.server.framework.controller;
 
 import com.mx.server.framework.model.response.CommonReturn;
-import com.mx.server.framework.model.vo.ReqSearchListVO;
+import com.mx.server.framework.model.vo.req.ReqSearchListVO;
 import com.mx.server.framework.service.DictService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

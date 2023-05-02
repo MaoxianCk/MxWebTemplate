@@ -1,6 +1,6 @@
 package com.mx.server.framework.dao;
 
-import com.mx.server.framework.model.vo.ReqSearchListVO;
+import com.mx.server.framework.model.vo.req.ReqSearchListVO;
 import com.mx.server.framework.model.entity.ParamEntity;
 import com.mx.server.framework.config.mybatis.MxBaseMapper;
 import org.apache.ibatis.annotations.Mapper;

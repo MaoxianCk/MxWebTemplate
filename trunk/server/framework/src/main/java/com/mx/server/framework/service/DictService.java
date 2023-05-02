@@ -1,7 +1,7 @@
 package com.mx.server.framework.service;
 
 import com.mx.server.framework.model.entity.DictEntity;
-import com.mx.server.framework.model.vo.ReqSearchListVO;
+import com.mx.server.framework.model.vo.req.ReqSearchListVO;
 
 import java.util.List;
 

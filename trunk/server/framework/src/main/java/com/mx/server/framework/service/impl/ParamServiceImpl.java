@@ -8,8 +8,8 @@ import com.mx.server.framework.error.BusinessException;
 import com.mx.server.framework.error.EmBusinessErr;
 import com.mx.server.framework.model.entity.ParamEntity;
 import com.mx.server.framework.model.mo.ParamCacheMO;
-import com.mx.server.framework.model.vo.ReqDeleteVO;
-import com.mx.server.framework.model.vo.ReqSearchListVO;
+import com.mx.server.framework.model.vo.req.ReqDeleteVO;
+import com.mx.server.framework.model.vo.req.ReqSearchListVO;
 import com.mx.server.framework.service.ParamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class ParamServiceImpl implements ParamService {
             } else {
                 changes = paramMapper.insert(paramEntity);
             }
-            if (changes > 0){
+            if (changes > 0) {
                 refreshCache();
             }
         }
@@ -55,7 +55,7 @@ public class ParamServiceImpl implements ParamService {
     @Override
     public void deleteParam(ReqDeleteVO reqDeleteVO) {
         int changes = paramMapper.physicalDeleteByBatchIds(reqDeleteVO.getIds());
-        if (changes > 0){
+        if (changes > 0) {
             refreshCache();
         }
     }
@@ -65,8 +65,15 @@ public class ParamServiceImpl implements ParamService {
         if (null == id && null == code) {
             return null;
         }
+        ParamEntity param = null;
+        if (null != code) {
+            param = redisCache.getCacheMapValue(RedisConstants.PARAM_MAP_KEY, code, ParamEntity.class);
+        }
+        if (null == param) {
+            param = paramMapper.selectByIdOrCode(id, code);
+        }
 
-        return paramMapper.selectByIdOrCode(id, code);
+        return param;
     }
 
     private void checkExisted(String code, Long ignoreId) {
@@ -77,7 +84,7 @@ public class ParamServiceImpl implements ParamService {
     }
 
     private void refreshCache() {
-        List<ParamEntity> list = paramMapper.selectList(null);
+        List<ParamEntity> list = paramMapper.selectParamList(null);
         Map<String, ParamCacheMO> map = list.stream().collect(Collectors.toMap(ParamEntity::getCode, ParamCacheMO::new));
         redisCache.setCacheMap(RedisConstants.PARAM_MAP_KEY, map);
         log.info("refresh param cache");

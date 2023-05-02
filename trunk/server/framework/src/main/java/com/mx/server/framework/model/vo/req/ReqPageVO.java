@@ -1,4 +1,4 @@
-package com.mx.server.framework.model.vo;
+package com.mx.server.framework.model.vo.req;
 
 import lombok.Data;
 

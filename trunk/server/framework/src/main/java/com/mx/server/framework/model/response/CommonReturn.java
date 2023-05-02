@@ -2,7 +2,7 @@ package com.mx.server.framework.model.response;
 
 import com.github.pagehelper.PageInfo;
 import com.mx.server.framework.error.EmBusinessErr;
-import io.swagger.v3.oas.annotations.media.Schema;
+ 
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,16 +16,16 @@ public class CommonReturn<T> {
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
 
-    @Schema(description = "状态代码,success表示服务器处理成功，fail表示处理出错")
+     
     private String status;
 
-    @Schema(description = "错误代码,供报错时使用")
+     
     private Integer errCode;
 
-    @Schema(description = "错误信息,供报错时使用")
+     
     private String errMsg;
 
-    @Schema(description = "返回的数据")
+     
     private T data;
 
     public CommonReturn() {

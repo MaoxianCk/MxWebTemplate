@@ -18,4 +18,10 @@ public final class RedisConstants {
     public static final String PARAM_PREFIX = "param:";
 
     public static final String PARAM_MAP_KEY = PARAM_PREFIX + "map";
+
+    /**
+     * Captcha 模块
+     */
+
+    public static final String CAPTCHA_PREFIX = "captcha:";
 }
