@@ -3,7 +3,7 @@ package com.mx.server.framework.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.mx.server.framework.dao.DictMapper;
 import com.mx.server.framework.model.entity.DictEntity;
-import com.mx.server.framework.model.vo.req.ReqSearchListVO;
+import com.mx.server.framework.model.vo.req.ReqDictSearchVO;
 import com.mx.server.framework.service.DictService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class DictServiceImpl implements DictService {
     private final DictMapper dictMapper;
 
     @Override
-    public List<DictEntity> getDictList(ReqSearchListVO req){
+    public List<DictEntity> getDictList(ReqDictSearchVO req){
         PageHelper.startPage(req.getPage(), req.getSize());
         return dictMapper.selectDictList(req);
     }

@@ -1,6 +1,7 @@
 package com.mx.server.framework.controller;
 
 import com.mx.server.framework.model.response.CommonReturn;
+import com.mx.server.framework.model.vo.req.ReqDictSearchVO;
 import com.mx.server.framework.model.vo.req.ReqSearchListVO;
 import com.mx.server.framework.service.DictService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class SysDictController {
     public final DictService dictService;
     @ResponseBody
     @GetMapping("getDictList")
-    public CommonReturn<?> getDictList(ReqSearchListVO req) {
+    public CommonReturn<?> getDictList(ReqDictSearchVO req) {
         return CommonReturn.success(dictService.getDictList(req));
     }
 }
