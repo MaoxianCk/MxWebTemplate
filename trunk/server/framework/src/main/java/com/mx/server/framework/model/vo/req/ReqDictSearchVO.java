@@ -1,16 +1,18 @@
 package com.mx.server.framework.model.vo.req;
 
-import java.time.LocalDateTime;
+import lombok.Data;
 
+import java.time.LocalDateTime;
+@Data
 public class ReqDictSearchVO extends ReqPageVO {
     // 根据label模糊查询
-    private String label="1";
+    private String label;
     // 根据code模糊查询
-    private String code="1";
+    private String code;
     // 根据父级code查询
-    private String parentCode="1";
+    private String parentCode;
     // 根据父级id查询
-    private Integer parentId=1;
+    private Integer parentId;
     // 状态
-    private Integer status=0;
+    private Integer status;
 }

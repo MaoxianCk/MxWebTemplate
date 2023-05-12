@@ -5,10 +5,16 @@
         select * from s_dict
         <where>
             <if test="parentCode == null or parentCode == ''">
-              parent_id = null
+                parent_code is null
             </if>
             <if test="parentCode != null and parentCode != ''">
-              parent_id = #{parentId}
+                and parent_code = #{parentCode}
+            </if>
+            <if test="parentId == null or parentId == ''">
+                and parent_id is null
+            </if>
+            <if test="parentId != null and parentId != ''">
+                and parent_id = #{parentId}
             </if>
         </where>
         ORDER BY orders ASC, create_time DESC
