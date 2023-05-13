@@ -16,6 +16,15 @@
             <if test="parentId != null and parentId != ''">
                 and parent_id = #{parentId}
             </if>
+            <if test="label != null and label != ''">
+                and label like concat('%', #{label}, '%')
+            </if>
+            <if test="code != null and code != ''">
+                and code like concat('%', #{code}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
         </where>
         ORDER BY orders ASC, create_time DESC
     </select>
