@@ -1,14 +1,14 @@
 package com.mx.server.framework.controller;
 
+import com.mx.server.framework.model.entity.DictEntity;
+import com.mx.server.framework.model.entity.ParamEntity;
 import com.mx.server.framework.model.response.CommonReturn;
+import com.mx.server.framework.model.vo.req.ReqDeleteVO;
 import com.mx.server.framework.model.vo.req.ReqDictSearchVO;
 import com.mx.server.framework.model.vo.req.ReqSearchListVO;
 import com.mx.server.framework.service.DictService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Maoxian
@@ -24,5 +24,18 @@ public class SysDictController {
     @GetMapping("getDictList")
     public CommonReturn<?> getDictList(ReqDictSearchVO req) {
         return CommonReturn.success(dictService.getDictList(req));
+    }
+    @PostMapping("upsertDict")
+    @ResponseBody
+    public CommonReturn<?> upsertDict(@RequestBody DictEntity dictEntity) {
+        dictService.upsertDict(dictEntity);
+        return CommonReturn.success();
+    }
+
+    @PostMapping("deleteDict")
+    @ResponseBody
+    public CommonReturn<?> deleteDict(@RequestBody ReqDeleteVO reqDeleteVO) {
+        dictService.deleteDict(reqDeleteVO);
+        return CommonReturn.success();
     }
 }

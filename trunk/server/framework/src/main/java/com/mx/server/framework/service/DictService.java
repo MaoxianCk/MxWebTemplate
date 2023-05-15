@@ -1,6 +1,8 @@
 package com.mx.server.framework.service;
 
 import com.mx.server.framework.model.entity.DictEntity;
+import com.mx.server.framework.model.entity.ParamEntity;
+import com.mx.server.framework.model.vo.req.ReqDeleteVO;
 import com.mx.server.framework.model.vo.req.ReqDictSearchVO;
 
 import java.util.List;
@@ -11,4 +13,7 @@ import java.util.List;
  */
 public interface DictService {
     List<DictEntity> getDictList(ReqDictSearchVO req);
+    void upsertDict(DictEntity dictEntity);
+
+    void deleteDict(ReqDeleteVO reqDeleteVO);
 }

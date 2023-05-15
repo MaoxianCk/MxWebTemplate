@@ -79,7 +79,7 @@ public class ParamServiceImpl implements ParamService {
     private void checkExisted(String code, Long ignoreId) {
         ParamEntity dbParam = paramMapper.selectByIdOrCode(null, code);
         if (null != dbParam && !dbParam.getId().equals(ignoreId)) {
-            throw new BusinessException(EmBusinessErr.PARAM_ALREADY_EXISTED);
+            throw new BusinessException(EmBusinessErr.DICT_ALREADY_EXISTED);
         }
     }
 

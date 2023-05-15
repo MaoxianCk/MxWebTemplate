@@ -28,4 +28,15 @@
         </where>
         ORDER BY orders ASC, create_time DESC
     </select>
+    <select id="selectByIdOrCode" resultType="com.mx.server.framework.model.entity.DictEntity">
+        select * from s_dict
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+        </where>
+    </select>
 </mapper>

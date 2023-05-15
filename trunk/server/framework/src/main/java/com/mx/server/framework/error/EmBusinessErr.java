@@ -24,8 +24,9 @@ public enum EmBusinessErr implements CommonError {
 
     FILE_UPLOAD_ERROR(3001, "文件上传失败"),
 
-    PARAM_ALREADY_EXISTED(12000, "参数已存在");
+    PARAM_ALREADY_EXISTED(12000, "参数已存在"),
 
+    DICT_ALREADY_EXISTED(13000, "参数已存在");
 
     private final Integer errCode;
     private String msg;
