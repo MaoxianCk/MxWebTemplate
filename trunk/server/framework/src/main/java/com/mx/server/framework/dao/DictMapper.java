@@ -1,11 +1,12 @@
 package com.mx.server.framework.dao;
 
-import com.mx.server.framework.model.entity.DictEntity;
 import com.mx.server.framework.config.mybatis.MxBaseMapper;
-import com.mx.server.framework.model.entity.ParamEntity;
+import com.mx.server.framework.model.entity.DictEntity;
 import com.mx.server.framework.model.vo.req.ReqDictSearchVO;
+import com.mx.server.framework.model.vo.res.ResTreeNodeVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -19,5 +20,7 @@ import java.util.List;
 @Mapper
 public interface DictMapper extends MxBaseMapper<DictEntity> {
     List<DictEntity> selectDictList(ReqDictSearchVO req);
+    List<ResTreeNodeVO> selectDictTreeNode(Long node);
+    List<ResTreeNodeVO> selectDictTreePNode(Long node);
     DictEntity selectByIdOrCode(@Param("id") Long id, @Param("code") String code);
 }

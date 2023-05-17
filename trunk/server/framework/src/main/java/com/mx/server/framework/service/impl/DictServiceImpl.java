@@ -2,23 +2,18 @@ package com.mx.server.framework.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.mx.server.framework.components.RedisCache;
-import com.mx.server.framework.constant.RedisConstants;
 import com.mx.server.framework.dao.DictMapper;
 import com.mx.server.framework.error.BusinessException;
 import com.mx.server.framework.error.EmBusinessErr;
 import com.mx.server.framework.model.entity.DictEntity;
-import com.mx.server.framework.model.entity.ParamEntity;
-import com.mx.server.framework.model.mo.ParamCacheMO;
 import com.mx.server.framework.model.vo.req.ReqDeleteVO;
 import com.mx.server.framework.model.vo.req.ReqDictSearchVO;
+import com.mx.server.framework.model.vo.res.ResTreeNodeVO;
 import com.mx.server.framework.service.DictService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author Maoxian
@@ -34,6 +29,14 @@ public class DictServiceImpl implements DictService {
     public List<DictEntity> getDictList(ReqDictSearchVO req){
         PageHelper.startPage(req.getPage(), req.getSize());
         return dictMapper.selectDictList(req);
+    }
+    @Override
+    public List<ResTreeNodeVO> getDictTree(){
+        List<ResTreeNodeVO> list=dictMapper.selectDictTreePNode(null);
+        for (ResTreeNodeVO node : list){
+            node.setChildren(dictMapper.selectDictTreeNode(node.getId()));
+        }
+        return list;
     }
     @Override
     public void upsertDict(DictEntity dictEntity) {
