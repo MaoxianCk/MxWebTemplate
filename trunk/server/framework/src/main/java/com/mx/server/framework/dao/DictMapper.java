@@ -21,6 +21,5 @@ import java.util.List;
 public interface DictMapper extends MxBaseMapper<DictEntity> {
     List<DictEntity> selectDictList(ReqDictSearchVO req);
     List<ResTreeNodeVO> selectDictTreeNode(Long node);
-    List<ResTreeNodeVO> selectDictTreePNode(Long node);
     DictEntity selectByIdOrCode(@Param("id") Long id, @Param("code") String code);
 }

@@ -32,7 +32,7 @@ public class DictServiceImpl implements DictService {
     }
     @Override
     public List<ResTreeNodeVO> getDictTree(){
-        List<ResTreeNodeVO> list=dictMapper.selectDictTreePNode(null);
+        List<ResTreeNodeVO> list=dictMapper.selectDictTreeNode(null);
         for (ResTreeNodeVO node : list){
             node.setChildren(dictMapper.selectDictTreeNode(node.getId()));
         }
