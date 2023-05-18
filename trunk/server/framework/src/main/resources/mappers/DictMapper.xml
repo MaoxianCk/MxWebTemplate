@@ -40,23 +40,17 @@
         </where>
     </select>
     <select id="selectDictTreeNode" resultType="com.mx.server.framework.model.vo.res.ResTreeNodeVO">
-        <if test="id == null">
-            SELECT
-            id, label, code, orders,create_time,is_default
-            FROM
-            s_dict
-            WHERE
-            parent_id IS NULL
-            ORDER BY orders ASC, create_time DESC
-        </if>
-        <if test="id != null">
-            SELECT
-            d2.id, d2.label, d2.code, d2.orders,d2.create_time,d2.is_default
-            FROM
-            s_dict d1,s_dict d2
-            WHERE
-            d1.id = d2.parent_id
-            ORDER BY d2.is_default DESC, d2.orders ASC, d2.create_time DESC
-        </if>
+        SELECT
+        id, label, code, orders,create_time,is_default
+        FROM
+        s_dict
+        <where>
+            <if test="id != null ">
+                parent_id=#{id}
+            </if>
+            <if test="id == null ">
+                and    parent_id IS NULL
+            </if>
+        </where>
     </select>
 </mapper>
