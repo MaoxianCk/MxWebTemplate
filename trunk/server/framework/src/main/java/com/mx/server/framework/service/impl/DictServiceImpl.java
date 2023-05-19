@@ -13,6 +13,7 @@ import com.mx.server.framework.service.DictService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,11 +33,45 @@ public class DictServiceImpl implements DictService {
     }
     @Override
     public List<ResTreeNodeVO> getDictTree(){
-        List<ResTreeNodeVO> list=dictMapper.selectDictTreeNode(null);
-        for (ResTreeNodeVO node : list){
-            node.setChildren(dictMapper.selectDictTreeNode(node.getId()));
+        //查询所有的字典
+        List<DictEntity> list=dictMapper.selectDictList(null);
+        //返回的结果
+        List<ResTreeNodeVO> resList=new LinkedList<>();
+        for (DictEntity dict : list){
+            //若为根节点
+            if(dict.getParentId()==null){
+                //类型转换成节点类型
+                ResTreeNodeVO rnode=transformEntity2TreeNode(dict);
+                //在树结构里添加根
+                resList.add(rnode);
+            }
         }
-        return list;
+        for (DictEntity dict : list){
+            if(dict.getParentId()!=null){
+                //查找对应父级
+                addToParent(resList, dict);
+            }
+        }
+        return resList;
+    }
+    private void addToParent(List<ResTreeNodeVO> resList, DictEntity dict) {
+        for (ResTreeNodeVO rnode : resList) {
+            if (rnode.getId().equals(dict.getParentId())) {
+                //类型转换成节点类型
+                ResTreeNodeVO node=transformEntity2TreeNode(dict);
+                rnode.getChildren().add(node);
+                return;
+            }
+        }
+    }
+    private ResTreeNodeVO transformEntity2TreeNode(DictEntity dict){
+        ResTreeNodeVO treeNodeV0 = new ResTreeNodeVO();
+        treeNodeV0.setId(dict.getId());
+        treeNodeV0.setLabel(dict.getLabel());
+        treeNodeV0.setValue(dict.getValue());
+        treeNodeV0.setCode(dict.getCode());
+        treeNodeV0.setChildren(new LinkedList<>());
+        return treeNodeV0;
     }
     @Override
     public void upsertDict(DictEntity dictEntity) {
@@ -55,6 +90,10 @@ public class DictServiceImpl implements DictService {
 //                refreshCache();
             }
         }
+    }
+
+    public void deletet() {
+
     }
     @Override
     public void deleteDict(ReqDeleteVO reqDeleteVO) {

@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mx.server.framework.dao.DictMapper">
     <select id="selectDictList" resultType="com.mx.server.framework.model.entity.DictEntity">
+        <if test="id==null">
+            select * from s_dict
+        </if>
+        <if test="id!=null">
         select * from s_dict
         <where>
             <if test="parentCode == null or parentCode == ''">
@@ -26,6 +30,7 @@
                 and status = #{status}
             </if>
         </where>
+        </if>
         ORDER BY orders ASC, create_time DESC
     </select>
     <select id="selectByIdOrCode" resultType="com.mx.server.framework.model.entity.DictEntity">
@@ -41,7 +46,7 @@
     </select>
     <select id="selectDictTreeNode" resultType="com.mx.server.framework.model.vo.res.ResTreeNodeVO">
         SELECT
-        id, label, code, orders,create_time,is_default
+        id, label, code, orders,create_time,is_default,value
         FROM
         s_dict
         <where>
@@ -49,7 +54,7 @@
                 parent_id=#{id}
             </if>
             <if test="id == null ">
-                and    parent_id IS NULL
+                and parent_id IS NULL
             </if>
         </where>
     </select>
