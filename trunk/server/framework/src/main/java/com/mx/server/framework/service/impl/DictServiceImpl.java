@@ -13,8 +13,7 @@ import com.mx.server.framework.service.DictService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Maoxian
@@ -34,33 +33,34 @@ public class DictServiceImpl implements DictService {
     @Override
     public List<ResTreeNodeVO> getDictTree(){
         //查询所有的字典
-        List<DictEntity> list=dictMapper.selectDictList(null);
-        //返回的结果
-        List<ResTreeNodeVO> resList=new LinkedList<>();
+        List<DictEntity> list=dictMapper.selectList(null);
+        // 创建一个HashMap来存储父子关系
+        Map<Long, List<DictEntity>> dictMap = new HashMap<>();
         for (DictEntity dict : list){
+            Long parentId=dict.getParentId();
             //若为根节点
-            if(dict.getParentId()==null){
-                //类型转换成节点类型
-                ResTreeNodeVO rnode=transformEntity2TreeNode(dict);
-                //在树结构里添加根
-                resList.add(rnode);
+            if(parentId==null){
+                // 根节点使用0L占位符
+                parentId = 0L;
             }
+            //根据指定的键（parentId）来获取对应的值
+            // 如果该键在 dictMap 中不存在，则会执行提供的函数来生成新值并放入 dictMap 中
+            dictMap.computeIfAbsent(parentId, k -> new ArrayList<>()).add(dict);
         }
-        for (DictEntity dict : list){
-            if(dict.getParentId()!=null){
-                //查找对应父级
-                addToParent(resList, dict);
-            }
-        }
+        // 创建一个新的列表来存储结果树结构
+        List<ResTreeNodeVO> resList = new LinkedList<>();
+        // 构建树结构
+        buildTree(dictMap, resList, 0L);
+        //返回的结果
         return resList;
     }
-    private void addToParent(List<ResTreeNodeVO> resList, DictEntity dict) {
-        for (ResTreeNodeVO rnode : resList) {
-            if (rnode.getId().equals(dict.getParentId())) {
-                //类型转换成节点类型
-                ResTreeNodeVO node=transformEntity2TreeNode(dict);
-                rnode.getChildren().add(node);
-                return;
+    private void buildTree(Map<Long, List<DictEntity>> dictMap, List<ResTreeNodeVO> resList, Long parentId) {
+        List<DictEntity> children = dictMap.get(parentId);
+        if (children != null) {
+            for (DictEntity dict : children) {
+                ResTreeNodeVO node = transformEntity2TreeNode(dict);
+                resList.add(node);
+                buildTree(dictMap, node.getChildren(), dict.getId());
             }
         }
     }
@@ -92,9 +92,7 @@ public class DictServiceImpl implements DictService {
         }
     }
 
-    public void deletet() {
 
-    }
     @Override
     public void deleteDict(ReqDeleteVO reqDeleteVO) {
         int changes = dictMapper.physicalDeleteByBatchIds(reqDeleteVO.getIds());
